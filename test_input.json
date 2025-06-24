@@ -1,0 +1,18 @@
+{
+    "func_name": "summarize_channel",
+    "channel_name": "general",
+    "messages_data": [
+        {
+            "author": "Alice",
+            "content": "Hey everyone, what do you think about the new feature?"
+        },
+        {
+            "author": "Bob", 
+            "content": "I think it's great! Really excited about the UI improvements."
+        },
+        {
+            "author": "Charlie",
+            "content": "Agreed, but we should consider performance implications."
+        }
+    ]
+}
