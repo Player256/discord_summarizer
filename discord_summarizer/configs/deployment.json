@@ -4,6 +4,7 @@
     "module":{
       "name" : "discord_summarizer",
       "description": "A tool for summarizing Discord conversations",
+      "parameters" : "{max_entries: int, channel_id: str}",
       "module_type": "tool",
       "version": "v0.1",
       "module_entrypoint": "run.py",
@@ -12,7 +13,10 @@
     "node": {"ip":"localhost"},
     "config":{
       "config_name": "tool_config_1",
-      "llm_config":{"model": "model_1"},
+      "llm_config":{
+        "config_name":"model_1",
+        "model": "model_1"
+      },
       "max_entries": 100
     }
   }

@@ -1,6 +1,7 @@
 import os
 import discord
 import asyncio
+import dotenv
 from collections import defaultdict
 from typing import Dict
 from prompts import SYSTEM_PROMPT, PROMPT_FORMATS
@@ -9,9 +10,9 @@ from naptha_sdk.schemas import ToolDeployment, ToolRunInput, NodeConfigUser
 from naptha_sdk.user import sign_consumer_id
 from naptha_sdk.inference import InferenceClient
 
+dotenv.load_dotenv()
 class DiscordSummarizer:
     def __init__(self, bot, tool_deployment: ToolDeployment, tool_inputs: InputSchema):
-        super().__init__(tool_deployment)
         self.tool_deployment = tool_deployment
         self.bot = bot
         self.system_prompt = SYSTEM_PROMPT
@@ -119,7 +120,9 @@ class DiscordSummarizer:
             return f"Error in generating summary: {str(e)}"
 
 async def run(module_run: Dict):
-    bot = discord.Client()
+    intents = discord.Intents.default()
+    intents.message_content = True
+    bot = discord.Client(intents=intents)
     module_run = ToolRunInput(**module_run)
     module_run.inputs = InputSchema(**module_run.inputs)
     DiscordSummarizerTool = DiscordSummarizer(bot,module_run, module_run.inputs)
@@ -172,6 +175,6 @@ if __name__ == "__main__":
         ),
     }
 
-    response = run(module_run)
+    response = asyncio.run(run(module_run))
 
     print("Response:",response)  
